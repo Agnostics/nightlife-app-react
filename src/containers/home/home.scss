@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+.home {
+    background-image: url('https://overtimetales.files.wordpress.com/2014/03/lights.jpg');
+    height: 100vh;
+    background-size: cover;
+    //font-family: 'Pacifico', cursive;
+}
+.contain {
+    width: 1200px;
+    text-align: center;
+    margin: 0 auto;
+    h1 {
+        color: #eee;
+        font-size: 80px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        text-shadow: 7px 2px 2px rgba(0, 0, 0, 0.49);
+    }
+    .main-input {
+        position: absolute;
+        top: 30%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        input {
+            background-color: #eee;
+            width: 400px;
+            height: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 3px;
+            border: none;
+            box-shadow: 0 0 23px 0 rgba(0,0,0,0.75);
+            &:focus {
+                outline: none;
+            }
+        }
+        button {
+            background-color: #eee;
+            height: 30px;
+            width: 60px;
+            border-radius: 10px;
+            margin-left: 10px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 0 23px 0 rgba(0,0,0,0.75);
+            &:hover {
+                cursor: pointer;
+                background-color: #ffffff;
+            }
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+.items {
+    margin-top: 10%;
+    position: absolute;
+    left: 0;
+    right: 0;
+	opacity: 0;
+}

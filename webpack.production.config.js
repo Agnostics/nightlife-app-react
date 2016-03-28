@@ -40,19 +40,23 @@ module.exports = {
           plugins: ['transform-runtime'],
           presets: ['es2015', 'stage-0', 'react'],
         }
-      }, 
+      },
       {
         test: /\.json?$/,
         loader: 'json'
-      }, 
+      }, {
+		  test: /\.scss$/,
+		  loaders: ['style', 'css', 'sass'],
+		  loader: ''
+	  },
       {
         test: /\.css?$/,
           loaders: ['style', 'raw'],
           include: __dirname
       },
-      { test: /\.(jpe?g|png|gif|svg)$/, 
-        loader: 'url', 
-        query: {limit: 10240} 
+      { test: /\.(jpe?g|png|gif|svg)$/,
+        loader: 'url',
+        query: {limit: 10240}
       }
     ]
   }
