@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import List from '../../components/list/list';
 import $ from 'jquery';
 import './home.scss';
+import Yelp from 'yelp';
 
 const opts = {
   consumer_key: 'pKDofaOks8Le0ZNJwBOeHA',
@@ -9,6 +10,8 @@ const opts = {
   token: 'kM_kDUnPoRKiuHKVQEu6oJ0i5f4Wy_SU',
   token_secret: 'iNVPVshM9kS9z5zDlIKFKfXsI6Y',
 };
+
+const yelp = new Yelp(opts);
 
 class Home extends Component {
 
@@ -20,7 +23,16 @@ class Home extends Component {
 	}
 
 	fetchData() {
-		console.log(process.env.CONSUMER_KEY);
+		yelp.search({
+        term: 'food',
+        location: 'Montreal',
+    })
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 	}
 
 	handleChange(e) {

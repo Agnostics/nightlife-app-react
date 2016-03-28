@@ -20,6 +20,14 @@ const app = express();
 
 require('dotenv').config();
 
+
+app.use(function(req, res, next) {
+console.log('MIDDLEWARE YOU BETTER BE CALLED!');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Webpack dev server
 if (isDeveloping) {
   const WEBPACK_PORT = 3001;
@@ -51,18 +59,12 @@ const publicPath = path.resolve(__dirname);
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(express.static(publicPath));
 
+
+
 const port = isProduction ? (process.env.PORT || 80) : 3000;
 
-app.use(function(req, res, next) {
-console.log('MIDDLEWARE YOU BETTER BE CALLED!');
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-
 // this is necessary to handle URL correctly since client uses Browser History
-app.get('*', function (req, res, next){
+app.get('/', function (req, res, next){
 	res.sendFile(path.resolve(__dirname, '', 'index.html'))
 	next();
 })
