@@ -7,11 +7,11 @@ import path from 'path';
 import http from 'http';
 import bodyParser from 'body-parser';
 import webpackConfig from './webpack.config';
-import cors from 'cors';
 
 import jwt from 'jsonwebtoken';
 import jwtConfig from './jwt.config.json';
 import Yelp from 'yelp';
+require('dotenv').config();
 
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -20,16 +20,13 @@ const isDeveloping = !isProduction;
 const app = express();
 
 const opts = {
-  consumer_key: 'pKDofaOks8Le0ZNJwBOeHA',
-  consumer_secret: 'YR3jx9DFMV9asjob8MV4LXpLJE0',
-  token: 'kM_kDUnPoRKiuHKVQEu6oJ0i5f4Wy_SU',
-  token_secret: 'iNVPVshM9kS9z5zDlIKFKfXsI6Y',
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  token: process.env.TOKEN,
+  token_secret: process.env.TOKEN_SECRET,
 };
 
 const yelp = new Yelp(opts);
-
-require('dotenv').config();
-
 
 // Webpack dev server
 if (isDeveloping) {
@@ -63,7 +60,6 @@ app.use(bodyParser.json({ type: 'application/json' }))
 app.use(express.static(publicPath));
 
 app.use(function(req, res, next) {
-console.log('MIDDLEWARE YOU BETTER BE CALLED!');
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
