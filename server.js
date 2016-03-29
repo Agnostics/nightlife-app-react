@@ -10,6 +10,8 @@ import webpackConfig from './webpack.config';
 
 import jwt from 'jsonwebtoken';
 import jwtConfig from './jwt.config.json';
+import Yelp from 'yelp';
+require('dotenv').config();
 
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -17,6 +19,14 @@ const isDeveloping = !isProduction;
 
 const app = express();
 
+const opts = {
+  consumer_key: process.env.CONSUMER_KEY,
+  consumer_secret: process.env.CONSUMER_SECRET,
+  token: process.env.TOKEN,
+  token_secret: process.env.TOKEN_SECRET,
+};
+
+const yelp = new Yelp(opts);
 
 // Webpack dev server
 if (isDeveloping) {
@@ -49,31 +59,52 @@ const publicPath = path.resolve(__dirname);
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(express.static(publicPath));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 const port = isProduction ? (process.env.PORT || 80) : 3000;
 
 // this is necessary to handle URL correctly since client uses Browser History
-app.get('*', function (request, response){
-  response.sendFile(path.resolve(__dirname, '', 'index.html'))
+app.get('/', function (req, res, next){
+	res.sendFile(path.resolve(__dirname, '', 'index.html'))
+	next();
 })
+
+app.get('/testyelp/:location', function(req, res) {
+
+  yelp.search({
+      term: 'bar',
+      location: req.params.location,
+    })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+    });
+})
+
 
 app.post('/api/login', function(req, res) {
       const credentials = req.body;
       if(credentials.user==='admin' && credentials.password==='password'){
 
-        const profile = {'user': credentials.user, 'role': 'ADMIN'};
+        const profile = {'user': credentials.user};
         const jwtToken = jwt.sign(profile, jwtConfig.secret, {'expiresIn' : 5*60});  // expires in 300 seconds (5 min)
         res.status(200).json({
           id_token: jwtToken
         });
 
-        //res.json({'user': credentials.user, 'role': 'ADMIN'});   
+        //res.json({'user': credentials.user, 'role': 'ADMIN'});
       }else{
         res.status(401).json({'message' : 'Invalid user/password'});
       }
 });
 
 app.post('/api/logout', function(req, res) {
-    res.status(200).json({'message' : 'User logged out'});   
+    res.status(200).json({'message' : 'User logged out'});
 });
 
 // We need to use basic HTTP service to proxy
@@ -85,4 +116,4 @@ server.listen(port, function (err, result) {
     console.log(err);
   }
   console.log('Server running on port ' + port);
-}); 
+});

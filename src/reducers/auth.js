@@ -12,7 +12,6 @@ import { loadUserProfile } from '../utils/utils';
 const initialState = {
   user: null,
   password: null,
-  userRole: null,
   loggingIn: false,
   loggingOut: false,
   loginError: null,
@@ -33,14 +32,12 @@ export default function auth(state = initializeState(), action = {}) {
     return Object.assign({}, state, {
       loggingIn: false,
  	  user: action.user,
- 	  role: action.role,
 	  });
   case LOGIN_FAILURE:
     return {
       ...state,
       loggingIn: false,
       user: null,
-      role: null,
       loginError: action.error,
     };
   case LOGOUT_REQUEST:
@@ -53,7 +50,6 @@ export default function auth(state = initializeState(), action = {}) {
       ...state,
       loggingOut: false,
       user: null,
-      userRole: null,
       loginError: null,
     };
   case LOGOUT_FAILURE:

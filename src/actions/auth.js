@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import { ID_TOKEN,
-         checkStatus,
+        checkStatus,
         parseJSON,
         setIdToken,
         removeIdToken,
