@@ -32,6 +32,7 @@
         "func-names": 0,
         "valid-typeof": 1,
         "max-len": 0,
-        "indent": 0
+        "indent": 0,
+        "no-console": 0
     }
 }

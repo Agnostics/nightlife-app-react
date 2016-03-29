@@ -1,34 +1,23 @@
 import React, { Component, PropTypes } from 'react';
-import './list.scss'
+import Item from '../../components/item/item';
 
 class List extends Component {
-	constructor() {
-	    super();
-	    this.state = { hover: false }
-	    this.handleHover = this.handleHover.bind(this);
-	}
-
-	handleHover() {
-		this.setState({ hover: !this.state.hover });
-	}
-
   render() {
+	console.log(this.props.data);
     return (
-    <div className="list-item">
-		<div onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} className="card">
-			<img src="src\components\list\o.jpg" />
-			<div className="title">Hudson Blue Bar & View</div>
-			{this.props.render && <div className="going">+2</div>}
-			{this.state.hover && <div className="add">+</div>}
+		<div>
+			{this.props.data.map((business) => {
+			    return <Item key={business.id} render={this.props.render} business={business} />;
+			})}
 		</div>
-	</div>
 
     );
-
   }
+
 }
   List.propTypes = {
     render: PropTypes.bool,
+	data: PropTypes.array,
   };
 
 export default List;

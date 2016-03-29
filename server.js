@@ -11,6 +11,7 @@ import cors from 'cors';
 
 import jwt from 'jsonwebtoken';
 import jwtConfig from './jwt.config.json';
+import Yelp from 'yelp';
 
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -18,15 +19,17 @@ const isDeveloping = !isProduction;
 
 const app = express();
 
+const opts = {
+  consumer_key: 'pKDofaOks8Le0ZNJwBOeHA',
+  consumer_secret: 'YR3jx9DFMV9asjob8MV4LXpLJE0',
+  token: 'kM_kDUnPoRKiuHKVQEu6oJ0i5f4Wy_SU',
+  token_secret: 'iNVPVshM9kS9z5zDlIKFKfXsI6Y',
+};
+
+const yelp = new Yelp(opts);
+
 require('dotenv').config();
 
-
-app.use(function(req, res, next) {
-console.log('MIDDLEWARE YOU BETTER BE CALLED!');
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // Webpack dev server
 if (isDeveloping) {
@@ -59,7 +62,12 @@ const publicPath = path.resolve(__dirname);
 app.use(bodyParser.json({ type: 'application/json' }))
 app.use(express.static(publicPath));
 
-
+app.use(function(req, res, next) {
+console.log('MIDDLEWARE YOU BETTER BE CALLED!');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 const port = isProduction ? (process.env.PORT || 80) : 3000;
 
@@ -68,6 +76,20 @@ app.get('/', function (req, res, next){
 	res.sendFile(path.resolve(__dirname, '', 'index.html'))
 	next();
 })
+
+app.get('/testyelp/:location', function(req, res) {
+
+  yelp.search({
+      term: 'bar',
+      location: req.params.location,
+    })
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+    });
+})
+
 
 app.post('/api/login', function(req, res) {
       const credentials = req.body;
