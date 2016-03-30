@@ -6,8 +6,10 @@ class List extends Component {
 	console.log(this.props.data);
     return (
 		<div>
-			{this.props.data.map((business) => {
+			{this.props.data.map((business, index) => {
+				if (index < 15) {
 			    return <Item key={business.id} render={this.props.render} business={business} />;
+				}
 			})}
 		</div>
 
