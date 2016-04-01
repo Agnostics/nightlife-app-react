@@ -13,6 +13,7 @@ import session from 'express-session';
 import passport from 'passport';
 import { Strategy as TwitterStrategy } from 'passport-twitter';
 import User from './server/models/user';
+import cors from 'cors';
 
 require('dotenv').config();
 
@@ -53,21 +54,29 @@ if (isDeveloping) {
     });
 }
 
+ var MongoStore = require('connect-mongo')(session);
 //  RESTful API
 const publicPath = path.resolve(__dirname);
 app.use(express.static(publicPath));
 app.use(bodyParser.json({type: 'application/json'}))
-app.use(session({secret: 'keyboard cat'}));
+app.use(session({
+    secret: 'foo',
+    store: new MongoStore({
+	    url: url,
+	    ttl: 14 * 24 * 60 * 60,
+	    unset: 'destroy'
+	})
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+
+app.use(cors());
 
 app.use('/', routes);
 
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, '', 'index.html'))
+})
 
 const port = isProduction ? (process.env.PORT || 80) : 3000;
 const server = http.createServer(app);

@@ -8,9 +8,19 @@ const router = express.Router(); // eslint-disable-line
 
 router.get('/yelp/:location', yelp.fetchData);
 
-// auth
-// router.get('/auth/twitter', twitter.auth);
-// router.get('/auth/twitter/callback', twitter.cb);
+
+router.get('/auth/login', (req, res) => {
+	res.json(req.user);
+})
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+router.get('/check', (req) => {
+ console.log(req.isAuthenticated());
+});
 
 router.get('/auth/twitter', passportTwitter.authenticate('twitter'));
 
@@ -20,11 +30,6 @@ router.get('/auth/twitter/callback',
 	console.log(req.user);
     res.json(req.user);
   });
-
-router.get('/', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, '', 'index.html'))
-	next();
-})
 
 
 module.exports = router;
