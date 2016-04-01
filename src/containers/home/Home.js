@@ -14,7 +14,7 @@ class Home extends Component {
 
 	fetchData() {
 		$.ajax({
-            url: `/testyelp/${this.state.input}`,
+            url: `/yelp/${this.state.input}`,
             dataType: 'json',
             success: (data) => {
                 this.setState({ data });
