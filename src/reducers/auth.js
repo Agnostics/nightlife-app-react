@@ -7,8 +7,6 @@ import {
   LOGOUT_FAILURE,
 } from '../actions/auth';
 
-import { loadUserProfile } from '../utils/utils';
-
 const initialState = {
   user: null,
   password: null,
@@ -18,8 +16,7 @@ const initialState = {
 };
 
 function initializeState() {
-  const userProfile = loadUserProfile();
-  return Object.assign({}, initialState, userProfile);
+  return Object.assign({}, initialState);
 }
 
 export default function auth(state = initializeState(), action = {}) {

@@ -4,10 +4,18 @@ import { connect } from 'react-redux';
 // import Header from '../../components/header/Header';
 // import Footer from '../../components/footer/Footer';
 
-import { logout } from '../../actions/auth';
+import { logout, login } from '../../actions/auth';
 import './app.scss';
 
 class App extends Component {
+
+displayName() {
+console.log(this.props.user.name);
+}
+	constructor(props) {
+	    super(props);
+		this.props.dispatch(login());
+	  }
 
   handleLogout() {
     const { user } = this.props;
@@ -15,12 +23,14 @@ class App extends Component {
     this.context.router.replace('/login');
   }
 
+
   render() {
     const { user } = this.props;
     return (
       <div>
         {/* <Header location={this.props.location} user={user} handleLogout={() => this.handleLogout()} /> */}
-        <div className="appContent">
+	<button onClick={this.displayName.bind(this)}>CLICK</button>
+<div className="appContent">
           {this.props.children}
         </div>
       </div>
@@ -29,7 +39,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  user: PropTypes.string,
+  user: PropTypes.object,
   children: PropTypes.node.isRequired,
   dispatch: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,

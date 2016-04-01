@@ -2,7 +2,6 @@ import express from 'express';
 import yelp from './yelp';
 // import twitter from './twitter';
 import passportTwitter from '../auth/twitter'
-import path from 'path';
 
 const router = express.Router(); // eslint-disable-line
 

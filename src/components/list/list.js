@@ -3,7 +3,6 @@ import Item from '../../components/item/item';
 
 class List extends Component {
   render() {
-	console.log(this.props.data);
     return (
 		<div>
 			{this.props.data.map((business, index) => {
