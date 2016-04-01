@@ -1,4 +1,3 @@
-
 import jwtDecode from 'jwt-decode';
 
 export function checkStatus(response) {
@@ -27,21 +26,6 @@ export function removeIdToken() {
 export function decodeUserProfile(idToken) {
   try {
     return jwtDecode(idToken);
-  } catch (err) {
-    return null;
-  }
-}
-
-export function loadUserProfile() {
-  try {
-    const idToken = localStorage.getItem(ID_TOKEN);
-    const userProfile = jwtDecode(idToken);
-    const now = new Date().getTime() / 1000;
-    if (now > userProfile.exp) {
-      // user profile has expired.
-      return {};
-    }
-    return userProfile;
   } catch (err) {
     return null;
   }

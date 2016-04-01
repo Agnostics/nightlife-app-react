@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import List from '../../components/list/list';
 import $ from 'jquery';
 import './home.scss';
+import { connect } from 'react-redux';
 
 class Home extends Component {
 
-	constructor() {
-		super();
-		this.state = { input: '', animate: true, render: false, data: [] };
+	constructor(props) {
+		super(props);
+		this.state = { input: '', animate: true, render: false, data: [], user: [] };
 		this.handleChange = this.handleChange.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 	}
 
 	fetchData() {
 		$.ajax({
-            url: `/testyelp/${this.state.input}`,
+            url: `/yelp/${this.state.input}`,
             dataType: 'json',
             success: (data) => {
                 this.setState({ data });
@@ -25,12 +26,21 @@ class Home extends Component {
         });
 	}
 
+	logUser() {
+	    if (this.props.user) {
+	        console.log(this.props.user.displayName || 'Not logged in!');
+	    } else {
+	        console.log('Not logged in!');
+	    }
+	}
+
 	handleChange(e) {
 		this.setState({ input: e.target.value })
 	}
 
 	handleClick() {
 	this.fetchData();
+	this.logUser();
 		const elem = document.getElementById('animate');
 		if (this.state.animate) {
 		    $(elem).animate({
@@ -68,4 +78,17 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  user: PropTypes.object,
+};
+
+function mapStateToProps(state) {
+  const { auth } = state;
+  if (auth) {
+    return { user: auth.user, loginError: auth.loginError };
+  }
+
+  return { user: null };
+}
+
+export default connect(mapStateToProps)(Home);

@@ -33,6 +33,7 @@
         "valid-typeof": 1,
         "max-len": 0,
         "indent": 0,
-        "no-console": 0
+        "no-console": 0,
+        "no-else-return": 0
     }
 }

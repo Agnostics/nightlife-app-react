@@ -8,11 +8,11 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import configureStore from './store/configureStore';
 
 import App from './containers/app/App';
-import Login from './containers/login/Login';
 import RestrictPage from './containers/misc/RestrictPage';
 import Home from './containers/home/Home';
 import About from './containers/about/About';
 import NotFound from './containers/misc/NotFound';
+
 
 const store = configureStore();
 
@@ -22,14 +22,12 @@ ReactDOM.render(
         <Route path="/" component={App}>
 
           <IndexRoute component={Home} />
-          <Route path="/login" component={Login} />
-
-
-          <Route component={RestrictPage}>
-			  <Route path="/about" component={About} />
-          </Route>
-
+		  <Route path="/about" component={About} />
           <Route path="*" component={NotFound} />
+
+          {/* <Route component={RestrictPage}>
+          </Route> */}
+
       	</Route>
       </Router>
   </Provider>,
