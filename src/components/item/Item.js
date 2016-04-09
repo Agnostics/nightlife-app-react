@@ -7,10 +7,15 @@ import './item.scss'
   	    this.state = { hover: false }
   	    this.handleHover = this.handleHover.bind(this);
 		this.largeImage = this.largeImage.bind(this);
+		this.handleClick = this.handleClick.bind(this);
   	}
 
 	handleHover() {
 		this.setState({ hover: !this.state.hover });
+	}
+
+	handleClick(id) {
+		console.log(id);
 	}
 
 	largeImage(url) {
@@ -27,8 +32,8 @@ import './item.scss'
   		  <div onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} className="card">
   			  <img src={this.largeImage(business.image_url)} />
   			  <div className="title">{business.name}</div>
-  			  {this.props.render && <div className="going">+2</div>}
-  			  {this.state.hover && <div className="add">+</div>}
+  			  {this.props.render && business.going.length > 0 && <div className="going">{business.going.length}</div>}
+  			  {this.state.hover && <div onClick={() => this.handleClick(business.id)} className="add">+</div>}
   		  </div>
   	  </div>
 

@@ -3,8 +3,6 @@ import { Strategy as TwitterStrategy } from 'passport-twitter';
 import User from '../models/user';
 import init from './init';
 
-console.log('in twitter.js');
-
 passport.use(new TwitterStrategy({
     consumerKey: 'eAOJC7bG6c1xJzGsPK24U12YQ',
     consumerSecret: 'R1Je1xkkcEo0NALGDjOBiBwbWQNYmyeAhrCw5hUMatdwKI6JYN',

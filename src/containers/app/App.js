@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import Header from '../../components/header/Header';
 // import Footer from '../../components/footer/Footer';
 
-import { logout, login } from '../../actions/auth';
+import { logout, fetchUserIfNeeded } from '../../actions/auth';
 import './app.scss';
 
 class App extends Component {
@@ -14,8 +14,9 @@ console.log(this.props.user.name);
 }
 	constructor(props) {
 	    super(props);
-		this.props.dispatch(login());
-	  }
+	    this.handleLogout = this.handleLogout.bind(this);
+	    this.props.dispatch(fetchUserIfNeeded());
+	}
 
   handleLogout() {
     const { user } = this.props;
@@ -23,14 +24,11 @@ console.log(this.props.user.name);
     this.context.router.replace('/login');
   }
 
-
   render() {
-    const { user } = this.props;
     return (
       <div>
         {/* <Header location={this.props.location} user={user} handleLogout={() => this.handleLogout()} /> */}
-	<button onClick={this.displayName.bind(this)}>CLICK</button>
-<div className="appContent">
+		<div className="appContent">
           {this.props.children}
         </div>
       </div>

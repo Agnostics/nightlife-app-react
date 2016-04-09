@@ -1,6 +1,4 @@
-import 'isomorphic-fetch';
 import $ from 'jquery';
-import { parseJSON } from '../utils/utils';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -13,7 +11,6 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 function loginRequest() {
   return {
     type: LOGIN_REQUEST,
-	user: null,
   };
 }
 
@@ -58,7 +55,6 @@ function logoutRequest() {
 function logoutSuccess() {
   return {
     type: LOGOUT_SUCCESS,
-    user: null,
   };
 }
 
@@ -84,4 +80,23 @@ export function logout() {
    	   },
       });
     };
+}
+
+
+function shouldFetchUser(state) {
+    const user = state.auth.user
+    if (!user) {
+        return true
+    } else {
+        return false
+    }
+}
+
+export function fetchUserIfNeeded() {
+  return (dispatch, getState) => {
+    if (shouldFetchUser(getState())) {
+      return dispatch(login())
+    }
+	return false;
+  }
 }

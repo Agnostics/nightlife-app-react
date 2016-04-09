@@ -22,14 +22,16 @@ function initializeState() {
 export default function auth(state = initializeState(), action = {}) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return Object.assign({}, state, {
+      return {
+		...state,
         loggingIn: true,
-	  });
+	  };
   case LOGIN_SUCCESS:
-    return Object.assign({}, state, {
-      loggingIn: false,
- 	  user: action.user,
-	  });
+    return {
+		...state,
+      	loggingIn: false,
+ 	  	user: action.user,
+	  };
   case LOGIN_FAILURE:
     return {
       ...state,

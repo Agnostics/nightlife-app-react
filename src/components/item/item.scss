@@ -26,22 +26,24 @@
         border-bottom-left-radius: 10px;
     }
     .going {
-        background-color: #29d085;
+        background-color: rgba(12, 12, 12, 0.76);
         border-radius: 20px;
         height: 32px;
         width: 33px;
         position: absolute;
-		margin-top: -158px;
-		margin-left: 124px;
+        margin-top: -158px;
+        margin-left: 124px;
         line-height: 2;
+        color: #ffffff;
+        border: 2px solid;
     }
     .add {
         background-color: rgba(52, 52, 52, 0.79);
-        width: 76px;
-        margin-top: -159px;
-        margin-left: 113px;
-        border-radius: 34px;
-        font-size: 64px;
+        width: 47px;
+        margin-top: -104px;
+        margin-left: 56px;
+        border-radius: 27px;
+        font-size: 37px;
         position: absolute;
         color: rgba(255, 255, 255, 0.61);
         cursor: pointer;
