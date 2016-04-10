@@ -3,6 +3,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var StatsPlugin = require('stats-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   entry: [
@@ -21,6 +23,7 @@ module.exports = {
         screw_ie8: true
       }
     }),
+	new ExtractTextPlugin("app.css"),
     new StatsPlugin('webpack.stats.json', {
       source: false,
       modules: false
@@ -47,7 +50,9 @@ module.exports = {
       }, {
 		  test: /\.scss$/,
 		  loaders: ['style', 'css', 'sass'],
-		  loader: ''
+		  loader: ExtractTextPlugin.extract(
+    "style",
+    "css!sass")
 	  },
       {
         test: /\.css?$/,
