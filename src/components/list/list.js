@@ -7,8 +7,9 @@ class List extends Component {
 		<div>
 			{this.props.data.map((business, index) => {
 				if (index < 15) {
-			    return <Item key={business.id} render={this.props.render} business={business} />;
+			    return <Item dispatch={this.props.dispatch} input={this.props.input} user={this.props.user} key={business.id} render={this.props.render} business={business} />;
 				}
+				return ''
 			})}
 		</div>
 
@@ -19,6 +20,9 @@ class List extends Component {
   List.propTypes = {
     render: PropTypes.bool,
 	data: PropTypes.array,
+	user: PropTypes.object,
+	input: PropTypes.string,
+	dispatch: PropTypes.func,
   };
 
 export default List;

@@ -64,7 +64,7 @@ const yelp = this.props.yelp || '';
 			{!user && <div>YOU MUST LOGIN FOOL</div>}
 
 			{!this.state.animate && <div id="items" className="items">
-				<List data={yelp.bars} render={this.state.render} />
+				<List dispatch={this.props.dispatch} input={this.state.input} user={this.props.auth} data={yelp.bars} render={this.state.render} />
 
 			</div>}
 		</div>

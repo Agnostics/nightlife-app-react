@@ -58,7 +58,7 @@ if (isDeveloping) {
 //  RESTful API
 const publicPath = path.resolve(__dirname);
 app.use(express.static(publicPath));
-app.use(bodyParser.json({type: 'application/json'}))
+app.use(bodyParser.urlencoded());
 app.use(session({
     secret: 'foo',
     store: new MongoStore({

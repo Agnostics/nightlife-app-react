@@ -58,8 +58,23 @@ module.exports = {
     },
 
 	postData(req, res) {
-
-
-	}
+	    Bar.findOneAndUpdate({
+	            location: req.body.location,
+	            'bars.id': req.body.id,
+	        }, {
+	            $push: {
+	                'bars.$.going': req.body.name,
+	            },
+	        },
+			{ new: true },
+	        (err, doc) => {
+	            if (err) {
+	                res.end();
+	            } else {
+					console.log(doc);
+					res.status(200).send(doc)
+	            }
+	        });
+	},
 
 }

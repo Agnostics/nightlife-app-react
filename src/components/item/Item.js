@@ -1,10 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import './item.scss'
+import './item.scss';
+
+import { fetchAttend, fetchYelp } from '../../actions/yelp';
 
   class Item extends Component {
   	constructor() {
   	    super();
-  	    this.state = { hover: false }
+
+		const going = 0;
+
+  	    this.state = { hover: false, going }
   	    this.handleHover = this.handleHover.bind(this);
 		this.largeImage = this.largeImage.bind(this);
 		this.handleClick = this.handleClick.bind(this);
@@ -14,8 +19,18 @@ import './item.scss'
 		this.setState({ hover: !this.state.hover });
 	}
 
-	handleClick(id) {
-		console.log(id);
+	handleClick(location, id, name) {
+		if (this.props.business.going.indexOf(name) < 0) {
+			this.setState({ going: this.props.business.going.length++ })
+			if (!this.props.user) {
+			console.log('you must login FOOL');
+			} else {
+				this.props.dispatch(fetchAttend(location, id, name));
+				// this.props.dispatch(fetchYelp(location));
+			}
+		} else {
+			console.log('You already did this');
+		}
 	}
 
 	largeImage(url) {
@@ -32,8 +47,8 @@ import './item.scss'
   		  <div onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} className="card">
   			  <img src={this.largeImage(business.image_url)} />
   			  <div className="title">{business.name}</div>
-  			  {this.props.render && business.going.length > 0 && <div className="going">{business.going.length}</div>}
-  			  {this.state.hover && <div onClick={() => this.handleClick(business.id)} className="add">+</div>}
+  			  {this.props.render && this.props.business.going.length > 0 && <div className="going">{this.props.business.going.length }</div>}
+  			  {this.state.hover && <div onClick={() => this.handleClick(this.props.input, this.props.business.id, this.props.user.displayName)} className="add">+</div>}
   		  </div>
   	  </div>
 
@@ -44,6 +59,9 @@ import './item.scss'
   Item.propTypes = {
     render: PropTypes.bool,
     business: PropTypes.object,
+	user: PropTypes.object,
+	dispatch: PropTypes.func.isRequired,
+	input: PropTypes.string,
   };
 
 export default Item;

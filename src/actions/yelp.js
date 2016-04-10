@@ -32,20 +32,20 @@ function yelpFailure(error) {
 
 function attendRequest() {
   return {
-    type: YELP_REQUEST,
+    type: ATTEND_REQUEST,
   };
 }
 
 function attendSuccess(data) {
   return {
-    type: YELP_SUCCESS,
-    data,
+    type: ATTEND_SUCCESS,
+	data,
   };
 }
 
 function attendFailure(error) {
   return {
-    type: YELP_FAILURE,
+    type: ATTEND_FAILURE,
     data: null,
     error,
   };
@@ -68,18 +68,19 @@ export function fetchYelp(location) {
   };
 }
 
-export function fetchAttend(location) {
+export function fetchAttend(location, id, name) {
   return dispatch => {
     dispatch(attendRequest());
-
 	$.ajax({
-		url: `/yelp/attend/${location}`,
+		type: 'POST',
+		url: '/yelp',
+		data: { location, id, name },
 		dataType: 'json',
 		success: (data) => {
-			dispatch(attendSuccess(data))
+			dispatch(attendSuccess(data));
 		},
 		error: (err) => {
-			dispatch(attendFailure(err))
+			dispatch(attendFailure(err));
 		},
 	});
   };
