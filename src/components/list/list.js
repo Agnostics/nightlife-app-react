@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Item from '../../components/item/item';
+import Item from '../../components/item/Item';
 
 class List extends Component {
   render() {
