@@ -59,10 +59,8 @@
 	"webpack": "^1.12.9",
 	"webpack-dev-middleware": "^1.5.1",
 	"webpack-hot-middleware": "^2.7.1",
-    "yelp": "^1.0.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "yelp": "^1.0.1",
+	"babel-cli": "^6.7.5",
     "babel-core": "^6.5.1",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.2",
@@ -85,4 +83,5 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7"
   }
+
 }
