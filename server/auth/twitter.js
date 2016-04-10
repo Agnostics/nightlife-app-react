@@ -3,10 +3,18 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 var User = require('../models/user');
 var init = require('./init');
 
+require('dotenv').config();
+
+if (process.env.NODE_ENV === 'production'){
+	var cbLink = 'https://nightlife-app-redux.herokuapp.com/auth/twitter/callback'
+}else{
+	var cbLink = 'http://localhost:3000/auth/twitter/callback'
+}
+
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_KEY,
     consumerSecret: process.env.TWITTER_SECRET,
-    callbackURL: 'https://nightlife-app-redux.herokuapp.com/auth/twitter/callback',
+    callbackURL: cbLink,
   }, function(token, tokenSecret, profile, done) {
 	  User.findOne({ id: profile.id }, function(err, user) {
 			if (user) return done(null, user);

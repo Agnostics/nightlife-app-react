@@ -1,23 +1,22 @@
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import express from 'express';
-import path from 'path';
-import http from 'http';
-import bodyParser from 'body-parser';
-import webpackConfig from './webpack.config';
-import mongoose from 'mongoose';
-import routes from './server/routes';
-import session from 'express-session';
-import passport from 'passport';
-import { Strategy as TwitterStrategy } from 'passport-twitter';
-import User from './server/models/user';
-import cors from 'cors';
+var webpack = require('webpack');
+var webpackMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var express = require('express');
+var path = require('path');
+var http = require('http');
+var bodyParser = require('body-parser');
+var webpackConfig = require('./webpack.config');
+var mongoose = require('mongoose');
+var routes = require('./server/routes');
+var session = require('express-session');
+var passport = require('passport');
+var cors = require('cors');
+
 require('dotenv').config();
 
-const isProduction = process.env.NODE_ENV === 'production';
-const isDeveloping = !isProduction;
-const url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/nightlife-app';
+var isProduction = process.env.NODE_ENV === 'production';
+var isDeveloping = !isProduction;
+var url = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/nightlife-app';
 
 mongoose.connect(url);
 mongoose.connection.on('error', function(err) {
@@ -25,12 +24,12 @@ mongoose.connection.on('error', function(err) {
     process.exit(-1);
 });
 
-const app = express();
+var app = express();
 
 // Webpack dev server
 if (isDeveloping) {
-    const WEBPACK_PORT = 3001;
-    const compiler = webpack(webpackConfig);
+    var WEBPACK_PORT = 3001;
+    var compiler = webpack(webpackConfig);
     app.use(webpackMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath,
         stats: {
@@ -51,10 +50,9 @@ if (isDeveloping) {
         console.log('WebpackDevServer listening at localhost:' + WEBPACK_PORT);
     });
 }
+var MongoStore = require('connect-mongo')(session);
 
- var MongoStore = require('connect-mongo')(session);
-//  RESTful API
-const publicPath = path.resolve(__dirname);
+var publicPath = path.resolve(__dirname);
 app.use(express.static(publicPath));
 app.use(bodyParser.urlencoded());
 app.use(session({
@@ -72,12 +70,12 @@ app.use(cors());
 
 app.use('/', routes);
 
-app.get('*', (request, response) => {
+app.get('*', function(request, response) {
   response.sendFile(path.resolve(__dirname, '', 'index.html'))
 })
 
-const port = isProduction ? (process.env.PORT || 80) : 3000;
-const server = http.createServer(app);
+var port = isProduction ? (process.env.PORT || 80) : 3000;
+var server = http.createServer(app);
 
 server.listen(port, function(err, result) {
     if (err) {

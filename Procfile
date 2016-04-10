@@ -1,1 +1,1 @@
-web: node serverOld.js
+web: npm run start

@@ -4,14 +4,13 @@
   "description": "Fullstack challenge from FCC.",
   "main": "server.js",
   "scripts": {
-    "dev": "SET NODE_ENV=development&&babel-node server.js",
+    "dev": "SET NODE_ENV=development&&node server.js",
     "build": "rimraf dist && SET NODE_ENV=production&& webpack --config ./webpack.production.config.js --progress --profile --colors",
     "postinstall": "webpack --config ./webpack.production.config.js --progress --colors",
-    "start": "node serverOld.js",
-    "startBuild": "SET NODE_ENV=production && SET PORT=80 && node serverOld.js",
+    "start": "node server.js",
+    "startBuild": "SET NODE_ENV=production && SET PORT=80 && node server.js",
     "lint": "eslint src",
-    "clean": "rimraf dist",
-    "heroku": "./node_modules/.bin/babel-node --presets es2015 ./server.js"
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
