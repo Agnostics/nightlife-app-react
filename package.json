@@ -9,7 +9,7 @@
     "start": "SET NODE_ENV=production&&SET PORT=80&&babel-node server.js",
     "lint": "eslint src",
     "clean": "rimraf dist",
-    "heroku": "NODE_ENV=production && babel-node server.js"
+    "heroku": "babel-node --presets es2015 ./server.js"
   },
   "repository": {
     "type": "git",
