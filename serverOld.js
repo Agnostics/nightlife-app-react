@@ -12,7 +12,7 @@ var session = require('express-session');
 var passport = require('passport');
 var cors = require('cors');
 
-// require('dotenv').config();
+require('dotenv').config();
 
 var isProduction = process.env.NODE_ENV === 'production';
 var isDeveloping = !isProduction;

@@ -4,9 +4,9 @@ var User = require('../models/user');
 var init = require('./init');
 
 passport.use(new TwitterStrategy({
-    consumerKey: 'eAOJC7bG6c1xJzGsPK24U12YQ',
-    consumerSecret: 'R1Je1xkkcEo0NALGDjOBiBwbWQNYmyeAhrCw5hUMatdwKI6JYN',
-    callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback',
+    consumerKey: process.env.TWITTER_KEY,
+    consumerSecret: process.env.TWITTER_SECRET,
+    callbackURL: 'https://nightlife-app-redux.herokuapp.com/auth/twitter/callback',
   }, function(token, tokenSecret, profile, done) {
 	  User.findOne({ id: profile.id }, function(err, user) {
 			if (user) return done(null, user);
