@@ -8,7 +8,6 @@ import bodyParser from 'body-parser';
 import webpackConfig from './webpack.config';
 import mongoose from 'mongoose';
 import routes from './server/routes';
-// import passport from './server/passport';
 import session from 'express-session';
 import passport from 'passport';
 import { Strategy as TwitterStrategy } from 'passport-twitter';
