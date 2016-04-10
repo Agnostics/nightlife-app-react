@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "SET NODE_ENV=development&&babel-node server.js",
     "build": "rimraf dist && SET NODE_ENV=production&& webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "start": "SET NODE_ENV=production&&SET PORT=80&&babel-node server.js",
+	"postinstall": "webpack --config ./webpack.production.config.js --progress --colors",
+	"start": "node serverOld.js",
+    "startBuild": "SET NODE_ENV=production&&SET PORT=80&&babel-node server.js",
     "lint": "eslint src",
     "clean": "rimraf dist",
     "heroku": "./node_modules/.bin/babel-node --presets es2015 ./server.js"
