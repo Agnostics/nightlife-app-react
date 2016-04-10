@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "SET NODE_ENV=development&&babel-node server.js",
     "build": "rimraf dist && SET NODE_ENV=production&& webpack --config ./webpack.production.config.js --progress --profile --colors",
-	"postinstall": "webpack --config ./webpack.production.config.js --progress --colors",
+	"postinstall": "./node_modules/webpack/bin/wepack.js --config ./webpack.production.config.js --progress --colors",
 	"start": "node serverOld.js",
     "startBuild": "SET NODE_ENV=production&&SET PORT=80&&babel-node server.js",
     "lint": "eslint src",
