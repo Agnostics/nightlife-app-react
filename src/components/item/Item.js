@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import './item.scss';
 
-import { fetchAttend, fetchYelp } from '../../actions/yelp';
+import { fetchAttend } from '../../actions/yelp';
 
   class Item extends Component {
   	constructor() {
@@ -23,10 +23,9 @@ import { fetchAttend, fetchYelp } from '../../actions/yelp';
 		if (this.props.business.going.indexOf(name) < 0) {
 			this.setState({ going: this.props.business.going.length++ })
 			if (!this.props.user) {
-			console.log('you must login FOOL');
+			window.location = '/auth/twitter';
 			} else {
 				this.props.dispatch(fetchAttend(location, id, name));
-				// this.props.dispatch(fetchYelp(location));
 			}
 		} else {
 			console.log('You already did this');
@@ -42,13 +41,14 @@ import { fetchAttend, fetchYelp } from '../../actions/yelp';
 
     render() {
 		const business = this.props.business;
+		const user = this.props.user || '';
       return (
 		  <div className="list-item">
   		  <div onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} className="card">
   			  <img src={this.largeImage(business.image_url)} />
   			  <div className="title">{business.name}</div>
   			  {this.props.render && this.props.business.going.length > 0 && <div className="going">{this.props.business.going.length }</div>}
-  			  {this.state.hover && <div onClick={() => this.handleClick(this.props.input, this.props.business.id, this.props.user.displayName)} className="add">+</div>}
+  			  {this.state.hover && <div onClick={() => this.handleClick(this.props.input, this.props.business.id, user.displayName)} className="add">+</div>}
   		  </div>
   	  </div>
 
