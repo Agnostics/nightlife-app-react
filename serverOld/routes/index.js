@@ -1,8 +1,8 @@
-var express = require('express');
-var yelp = require('./yelp');
-var passportTwitter = require('../auth/twitter');
+import express from 'express';
+import yelp from './yelp';
+import passportTwitter from '../auth/twitter'
 
-var router = express.Router(); // eslint-disable-line
+const router = express.Router(); // eslint-disable-line
 
 router.get('/yelp/:location', yelp.fetchData);
 router.post('/yelp/', yelp.postData);
@@ -11,11 +11,11 @@ router.post('/yelp/', yelp.postData);
 // router.get('/yelp/attend/:location', yelp.fetchAttend);
 
 
-router.get('/auth/login', function(req, res) {
+router.get('/auth/login', (req, res) => {
 	res.json(req.user);
 })
 
-router.get('/logout', function(req, res) {
+router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });

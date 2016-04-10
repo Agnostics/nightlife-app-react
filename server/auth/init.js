@@ -1,13 +1,13 @@
-import passport from 'passport';
-import User from '../models/user';
+var passport = require('passport');
+var User = require('../models/user');
 
-module.exports = () => {
-  passport.serializeUser((user, done) => {
+module.exports = function() {
+  passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
 
-  passport.deserializeUser((id, done) => {
-    User.findOne({ id }, (err, user) => {
+  passport.deserializeUser(function(id, done) {
+    User.findOne({ id }, function(err, user) {
       done(err, user);
     });
   });

@@ -1,24 +1,24 @@
-var passport = require('passport');
-var TwitterStrategy  = require('passport-twitter').Strategy;
-var User = require('../models/user');
-var init = require('./init');
+import passport from 'passport';
+import { Strategy as TwitterStrategy } from 'passport-twitter';
+import User from '../models/user';
+import init from './init';
 
 passport.use(new TwitterStrategy({
     consumerKey: 'eAOJC7bG6c1xJzGsPK24U12YQ',
     consumerSecret: 'R1Je1xkkcEo0NALGDjOBiBwbWQNYmyeAhrCw5hUMatdwKI6JYN',
     callbackURL: 'http://127.0.0.1:3000/auth/twitter/callback',
-  }, function(token, tokenSecret, profile, done) {
-	  User.findOne({ id: profile.id }, function(err, user) {
+  }, (token, tokenSecret, profile, done) => {
+	  User.findOne({ id: profile.id }, (err, user) => {
 			if (user) return done(null, user);
 
-			var newUser = new User({
+			const newUser = new User({
 		   	id: profile.id,
 		   	displayName: profile.displayName,
 		   	image: profile.photos[0].value,
 		   	twitter: { token, tokenSecret, username: profile.username },
 		   });
 
-		   newUser.save(function() {
+		   newUser.save(() => {
 				if (err) throw err;
 			   return done(err, newUser)
 		   })

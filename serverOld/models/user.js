@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var userSchema = mongoose.Schema({ //eslint-disable-line
+const userSchema = mongoose.Schema({ //eslint-disable-line
+
 	id: { type: String, required: true },
 	displayName: { type: String },
 	image: { type: String },

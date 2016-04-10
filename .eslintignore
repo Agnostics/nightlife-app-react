@@ -1,6 +1,7 @@
 **/dist/*
 **/node_modules/*
 **/server.js
+serverOld.js
+server/*
 **/webpack.config.js
 **/webpack.production.config.js
-

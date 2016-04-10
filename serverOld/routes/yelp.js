@@ -1,17 +1,17 @@
-var Yelp = require('yelp');
-var Bar = require('../models/bar');
+import Yelp from 'yelp';
+import Bar from '../models/bar';
 
 
 module.exports = {
 
     fetchData(req, res) {
-		Bar.findOne({ location: req.params.location.toLowerCase() }, function(err, data) {
-		var bars = [];
+		Bar.findOne({ location: req.params.location.toLowerCase() }, (err, data) => {
+		const bars = [];
 
 		  if (err) return err
 		  if (!data) {
 				console.log('Creating New Bar');
-			    var api = new Yelp({
+			  const api = new Yelp({
   	            consumer_key: process.env.CONSUMER_KEY,
   	            consumer_secret: process.env.CONSUMER_SECRET,
   	            token: process.env.TOKEN,
@@ -22,9 +22,9 @@ module.exports = {
   	                term: 'bar',
   	                location: req.params.location,
   	            })
-  	            .then(function(yelp) {
-			  yelp.businesses.forEach(function(bar) {
-			     var place = {
+  	            .then((yelp) => {
+			  yelp.businesses.forEach((bar) => {
+			     const place = {
 			     id: bar.id,
 			     image_url: bar.image_url,
 			     url: bar.url,
@@ -34,19 +34,19 @@ module.exports = {
 				bars.push(place);
 			 });
 
-				var bar = new Bar({
+				const bar = new Bar({
 					location: req.params.location.toLowerCase(),
 					bars,
 				})
 
-				bar.save(function(dberr) {
+				bar.save((dberr) => {
 					if (dberr) return dberr
 					return console.log('Created new bar');
 				})
 
   	            return res.json(bar);
   	            })
-  	            .catch(function(yelperr) {
+  	            .catch((yelperr) => {
   	                return console.log(yelperr);
   	            });
 			} else {
@@ -67,7 +67,7 @@ module.exports = {
 	            },
 	        },
 			{ new: true },
-	        function(err, doc) {
+	        (err, doc) => {
 	            if (err) {
 	                res.end();
 	            } else {

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-var BarSchema = mongoose.Schema({ //eslint-disable-line
+const BarSchema = mongoose.Schema({ //eslint-disable-line
   location: String,
   bars: Array,
 });
