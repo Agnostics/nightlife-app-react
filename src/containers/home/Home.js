@@ -28,10 +28,13 @@ class Home extends Component {
 	handleClick() {
 	this.fetchData();
 		const elem = document.getElementById('animate');
+		const bg = document.getElementById('blur');
+
 		if (this.state.animate) {
 		    $(elem).animate({
 				marginTop: '-=320',
 		    }, 1000, () => {
+			bg.className += ' blur';
 			this.setState({ animate: false });
 			const items = document.getElementById('items');
 			$(items).fadeTo('slow', 1, () => {
@@ -51,8 +54,9 @@ const user = this.props.auth || '';
 const yelp = this.props.yelp || '';
 
     return (
-    <div className="home">
-		<div className="contain">
+    <div className="home" >
+		<div id="blur" className="background-image"></div>
+		<div className="contain" >
 			<div>
 				<div id="animate" className="main-input">
 				   <h1>Nightlife App</h1>

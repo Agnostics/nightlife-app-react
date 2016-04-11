@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import './item.scss';
-
 import { fetchAttend } from '../../actions/yelp';
+import './item.scss';
 
   class Item extends Component {
   	constructor() {
@@ -42,6 +41,7 @@ import { fetchAttend } from '../../actions/yelp';
     render() {
 		const business = this.props.business;
 		const user = this.props.user || '';
+
       return (
 		  <div className="list-item">
   		  <div onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} className="card">
